@@ -1,0 +1,924 @@
+/*
+autor: Krzysztof Łokaj
+-------------------------------------------------------------------------------*/
+
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-weight: normal;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+main, article, aside, figure, footer, header, nav, section, details, summary {display: block;}
+
+/* Handle box-sizing while better addressing child elements:
+   http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+/* consider resetting the default cursor: https://gist.github.com/murtaugh/5247154 */
+
+/* Responsive images and other embedded objects */
+/* if you don't have full control over `img` tags (if you have to overcome attributes), consider adding height: auto */
+img,
+object,
+embed {max-width: 100%;}
+
+/*
+   Note: keeping IMG here will cause problems if you're using foreground images as sprites.
+	In fact, it *will* cause problems with Google Maps' controls at small size.
+	If this is the case for you, try uncommenting the following:
+
+#map img {
+		max-width: none;
+}
+*/
+
+/* force a vertical scrollbar to prevent a jumpy page */
+html {overflow-y: scroll;}
+
+/* we use a lot of ULs that aren't bulleted.
+	you'll have to restore the bullets within content,
+	which is fine because they're probably customized anyway */
+ul {list-style: none;}
+
+blockquote, q {quotes: none;}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {content: ''; content: none;}
+
+a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent;}
+
+del {text-decoration: line-through;}
+
+abbr[title], dfn[title] {border-bottom: 1px dotted #000; cursor: help;}
+
+/* tables still need cellspacing="0" in the markup */
+table {border-collapse: separate; border-spacing: 0;}
+th {font-weight: bold; vertical-align: bottom;}
+td {font-weight: normal; vertical-align: top;}
+
+hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;}
+
+input, select {vertical-align: middle;}
+
+pre {
+    white-space: pre; /* CSS2 */
+    white-space: pre-wrap; /* CSS 2.1 */
+    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+    word-wrap: break-word; /* IE */
+}
+
+input[type="radio"] {vertical-align: text-bottom;}
+input[type="checkbox"] {vertical-align: bottom;}
+.ie7 input[type="checkbox"] {vertical-align: baseline;}
+.ie6 input {vertical-align: text-bottom;}
+
+select, input, textarea {font: 99% sans-serif;}
+
+table {font-size: inherit; font: 100%;}
+
+small {font-size: 85%;}
+
+strong {font-weight: bold;}
+
+td, td img {vertical-align: top;}
+
+/* Make sure sup and sub don't mess with your line-heights http://gist.github.com/413930 */
+sub, sup {font-size: 75%; line-height: 0; position: relative;}
+sup {top: -0.5em;}
+sub {bottom: -0.25em;}
+
+/* standardize any monospaced elements */
+pre, code, kbd, samp {font-family: monospace, sans-serif;}
+
+/* hand cursor on clickable elements */
+.clickable,
+label,
+input[type=button],
+input[type=submit],
+input[type=file],
+button {cursor: pointer;}
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+button, input, select, textarea {margin: 0;}
+
+/* make buttons play nice in IE */
+button,
+input[type=button] {width: auto; overflow: visible;}
+
+/* scale images in IE7 more attractively */
+.ie7 img {-ms-interpolation-mode: bicubic;}
+
+/* prevent BG image flicker upon hover
+   (commented out as usage is rare, and the filter syntax messes with some pre-processors)
+.ie6 html {filter: expression(document.execCommand("BackgroundImageCache", false, true));}
+*/
+
+/* let's clear some floats */
+.clearfix:after { content: " "; display: block; clear: both; }
+
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,600,700&display=swap&subset=latin-ext');
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+
+header{
+    background: #000000;
+    padding: 15px 0;
+}
+.content{
+    width: 1060px;
+    margin: 0 auto;
+}
+a{
+    cursor: pointer;
+}
+header,
+header a{
+    font-size: 1.3em;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    -webkit-transition: color 100ms linear;
+    -moz-transition: color 100ms linear;
+    -ms-transition: color 100ms linear;
+    -o-transition: color 100ms linear;
+    transition: color 100ms linear;
+}
+header nav a:hover{
+    color: pink;
+}
+header h1 span{
+    color: #24BA9F;
+    font-weight: bold;
+}
+header .content{
+    display: flex;
+    justify-content: space-between;
+}
+header .content nav > ul > li{
+    float: left;
+    margin-left: 50px;
+    position: relative;
+}
+header .content ul li a{
+    padding: 5px;
+    display: inline-block;
+}
+header ul ul{
+    position: absolute;
+    padding-top: 80px;
+    top: 25px;
+    display: none;
+}
+header ul ul li{
+    background: #000000;
+    padding: 10px;
+    position: relative;
+}
+header ul ul li a{
+    text-transform: capitalize;
+}
+header ul li:hover ul{
+    display: block;
+}
+header ul ul li{
+    position: relative;
+}
+header ul ul li:first-child::before{
+    width: 30px;
+    height: 30px;
+    content: '';
+    background: #000000;
+    display: block;
+    top: -13px;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    left: calc(50% - 13px);
+}
+
+section{
+    background: #f8f8f8;
+    background: -moz-linear-gradient(top, #f8f8f8 9%, #cfcfd7 98%);
+    background: -webkit-linear-gradient(top, #f8f8f8 9%,#cfcfd7 98%);
+    background: linear-gradient(to bottom, #f8f8f8 9%,#cfcfd7 98%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#cfcfd7',GradientType=0 );
+
+}
+
+.main{
+    width: 1060px;
+    height: 500px;
+    color: #000000;
+
+}
+
+section h2{
+
+}
+
+section h2 span{
+    color: #24BA9F;
+    font-weight: bold;
+}
+
+/*SLIDE*/
+/*-------
+---------
+---------
+-------*/
+
+.slide{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 500px;
+
+}
+.slide img{
+    width: 45%;
+    height: auto;
+}
+
+.slide div{
+    text-align: center;
+}
+
+.slide > div h2{
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    margin-bottom: 0.7em;
+    text-align: center;
+}
+
+.slide > div p{
+    font-size: 0.9rem;
+
+
+}
+
+.slide > div a{
+    display: inline-block;
+    padding: 10px 25px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #24BA9F;
+    margin-top: 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+
+}
+
+.slide > div a:hover {
+    color: #13AA8E;
+    -webkit-transition: color 1s linear;
+    -moz-transition: color 1s linear;
+    -ms-transition: color 1s linear;
+    -o-transition: color 1s linear;
+    transition: color 1s linear;
+}
+
+
+#leftPointer {
+    font-size: 100px;
+    color: #24BA9F;
+    text-decoration: none;
+    text-shadow: 5px 10px 4px #999999;
+
+}
+
+#rightPointer {
+    font-size: 100px;
+    color: #24BA9F;
+    text-decoration: none;
+    text-shadow: 5px 10px 4px #999999;
+}
+
+#leftPointer:hover {
+    color: #13AA8E;
+    -webkit-transition: color 1s linear;
+    -moz-transition: color 1s linear;
+    -ms-transition: color 1s linear;
+    -o-transition: color 1s linear;
+    transition: color 1s linear;
+}
+
+#rightPointer:hover {
+    color: #13AA8E;
+    -webkit-transition: color 1s linear;
+    -moz-transition: color 1s linear;
+    -ms-transition: color 1s linear;
+    -o-transition: color 1s linear;
+    transition: color 1s linear;
+
+}
+
+
+/*image frame*/
+
+.contentTwo{
+
+}
+
+.middleFrame{
+    display: flex;
+    justify-content: space-around;
+    margin:25px 200px;
+    margin-bottom: 100px;
+}
+
+
+.imageContainer {
+    width: 400px;
+    height: 250px;
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+.middleImage{
+
+    width: 400px;
+    height: 250px;
+}
+  
+  .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: black;
+    border-bottom: solid #24BA9F 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    font-family: Roboto;
+  }
+
+  .textContainer{
+      width: 400px;
+      height: 250px;
+      border-style: solid;
+      border-color: gray;
+      border-width: 2px;
+      font-size: 14px;
+      letter-spacing: 2px;
+  }
+
+  .textContainer p{
+
+    padding: 10px;
+  }
+
+  .middleFrameHeader{
+      font-size: 18px;
+      text-decoration: underline;
+      text-decoration-color: #24BA9F;
+      padding: 10px;
+      font-weight: bold;
+      font-family: Roboto;
+      }
+
+
+      .contentPriceTable{
+          
+        width:100%;
+        height:900px;
+        background: rgb(241, 241, 241);
+      }
+
+      .containerPT{
+        display: flex;
+        justify-content: space-around;
+        margin:25px 200px;
+        margin-bottom: 100px;
+          
+          
+      }
+
+      .topTextPTBox{
+        width: 400px;
+        height: 100px;
+        margin-top: 25px;
+
+      }
+
+      .topTextPT{
+        margin-top: 30px;
+        width: 100%;
+        height:40px;
+        border-bottom: #24BA9F 8px solid;
+        color: slategrey;
+        font-size: 20px;
+
+      }
+
+      .contentPTPlans{
+        display: flex;
+        justify-content: space-around;
+        margin:25px 200px;
+        margin-bottom: 100px;
+
+      }
+
+      .planOne{
+
+        height:600px;
+        width: 400px;
+        border: 2px solid rgb(170, 170, 170);
+        background-color:rgb(255, 255, 255);
+        
+    
+        
+      }
+
+
+      
+      /*Price Table Rows ----- Plan One*/
+
+
+      .pOne3{
+
+        width:100%;
+        height: 50px;
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 25px;
+        color: #13AA8E;
+        font-family: Roboto;
+
+      }
+
+      .pOne4{
+
+        height:150px;
+        width:150px;
+        margin: 50px auto;
+        border-radius: 50%;
+        border: 2px solid rgb(170, 170, 170);
+
+      }
+
+      .priceOne{
+        color: rgb(129, 129, 129);
+        font-size: 48px;
+        font-weight: bolder;
+        text-align: center;
+        padding-top: 40px;
+
+      }
+
+      .priceOne sup{
+        font-size: 28px;
+
+      }
+
+      .currencyOne{
+
+        color: rgb(129, 129, 129);
+        text-align: center;
+        font-weight: bold;
+
+      }
+
+      .pOne5{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(170, 170, 170);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(129, 129, 129);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pOne6{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(221, 221, 221);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(170, 170, 170);
+        font-family: Roboto;
+        
+
+      }
+
+      .pOne7{
+        width:100%;
+        height: 200px;
+        display: flexbox;
+        margin: auto;
+        padding-top:120px;
+        
+      }
+
+      .oneButton{
+
+        width:120px;
+        height:40px;
+        background-color: #24BA9F;
+        font-size: 15px;
+        text-align: center;
+        border-radius: 5px;
+        color: #f8f8f8;
+        padding-top: 12px;
+        margin: auto;
+        
+      }
+
+/*Price Table Rows ----- Plan Two*/
+
+      .planTwo{
+
+        height:600px;
+        width: 400px;
+        border: 2px solid #24BA9F;
+        background-color: #24BA9F;
+        
+      }
+
+      .pTwo3{
+
+        width:100%;
+        height: 50px;
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 25px;
+        color: #f8f8f8;
+        font-family: Roboto;
+
+      }
+
+      .pTwo4{
+
+        height:150px;
+        width:150px;
+        margin: 50px auto;
+        border-radius: 50%;
+        border: 2px solid #24BA9F;
+        background-color: #f8f8f8;
+
+      }
+
+      .priceTwo{
+        color: #24BA9F;
+        font-size: 48px;
+        font-weight: bolder;
+        text-align: center;
+        padding-top: 40px;
+
+      }
+
+      .priceTwo sup{
+        font-size: 28px;
+
+      }
+
+      .currencyTwo{
+
+        color: #24BA9F;
+        text-align: center;
+        font-weight: bold;
+
+      }
+      
+
+
+
+       .pTwo5{
+
+        width:100%;
+        height: 50px;
+        background-color:#f8f8f8;
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(170, 170, 170);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pTwo6{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(221, 221, 221);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(170, 170, 170);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pTwo7{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(170, 170, 170);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(129, 129, 129);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pTwo8{
+        width:100%;
+        height: 200px;
+        display: flexbox;
+        margin: auto;
+        padding-top:70px;
+        
+      }
+
+      .twoButton{
+
+        width:120px;
+        height:40px;
+        background-color: #f8f8f8;
+        font-size: 15px;
+        text-align: center;
+        border-radius: 5px;
+        color: #24BA9F;
+        padding-top: 12px;
+        margin: auto;
+
+      }
+
+
+
+/*Price Table Rows ----- Plan Three*/
+
+      .planThree{
+
+        height:600px;
+        width: 400px; 
+        border: 2px solid rgb(170, 170, 170);
+        background-color:rgb(255, 255, 255);
+        
+      }
+
+
+
+      .pThree3{
+
+        width:100%;
+        height: 50px;
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 25px;
+        color: #13AA8E;
+        font-family: Roboto;
+
+      }
+
+      .pThree4{
+
+        height:150px;
+        width:150px;
+        margin: 50px auto;
+        border-radius: 50%;
+        border: 2px solid rgb(170, 170, 170);
+
+      }
+
+
+      .pThree5{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(170, 170, 170);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(129, 129, 129);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pThree6{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(221, 221, 221);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(170, 170, 170);
+        font-family: Roboto;
+        
+
+      }
+
+      .pThree7{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(170, 170, 170);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(129, 129, 129);
+        font-family: Roboto;
+        
+        
+
+      }
+
+      .pThree8{
+
+        width:100%;
+        height: 50px;
+        background-color: rgb(221, 221, 221);
+        font-size: 25px;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 8px;
+        color: rgb(170, 170, 170);
+        font-family: Roboto;
+        
+
+      }
+
+      .pThree9{
+
+        width:100%;
+        height: 200px;
+        margin: auto;
+        padding-top:20px;
+        
+
+      }
+
+
+      /*MessageForm*/
+      /*----------*/
+      /*----------*/
+      /*----------*/
+
+
+
+      .contentMessageBox{
+        width:100%;
+        height:300px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .messageForm{
+        
+        width:400px;
+        margin:-100px 250px;
+      }
+
+      input{
+        height:60px;
+        width: 700px;
+        margin: 15px 0;
+        border: #13AA8E 1px solid;
+        font-size: 30px;
+        color: lightgray;
+        padding: 10px;
+      }
+
+
+      .messageImageNumberOne{
+
+        margin: 0 50px;
+      }
+
+      .messageImageBox{
+        width: 400px;
+        margin-right: 250px;
+        margin-top: -100px;
+        
+
+      }
+
+      .insideMessageImageNumberTwo{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        width: 400px;
+
+      }
+
+    .formOK{
+      padding: 5px 3px;
+      border: #24BA9F 1px solid;
+
+    }
+
+    .formDataOk{
+
+      margin-left: 10px;
+      margin-top: 10px;
+      color:rgb(170, 170, 170);
+      font-size: 20px;
+
+    }
+
+  .messageButtonSubmit{
+
+    height:70px;
+    width: 340px;
+    background-color: #24BA9F;
+    color: #f8f8f8;
+    text-align: center;
+    padding: 20px;
+    font-size: 28px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin: 40px auto;
+
+  }
+
+
+  footer{
+
+    display: flex;
+    justify-content: space-between;
+
+
+  }
+
+  .copyrightText{
+
+    color: rgb(170, 170, 170);
+    font-weight: bold;
+    font-size: 16px;
+    margin: 100px 250px;
+    margin-bottom: 50px;
+  }
+
+  .socialLinks{
+
+    margin: 100px 250px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+
+
+
+  }
+
+  .socialIcons{
+
+    margin-right: 100px;
+
+  }
+
+  .siteLogo{
+    color: rgb(170, 170, 170);
+    font-size: 24px;
+    padding-top: 5px;
+
+  }
